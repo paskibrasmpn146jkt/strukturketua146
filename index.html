@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PASSAVANA - Paskibra SMPN 146 Jakarta</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold-primary: #D4AF37;
+    --gold-hover: #FFD700;
+    --black-deep: #050505;
+    --white: #f5f5f5;
+    --gray: #cccccc;
+    --black-panel: #111111;
+    --ig-color: #E1306C;
+    --tt-color: #010101;
+}
+
+/* Reset */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins', sans-serif; background:var(--black-deep); color:var(--white); overflow-x:hidden; }
+
+/* Hero */
+.hero {
+    height:80vh;
+    display:flex; flex-direction:column; justify-content:center; align-items:center;
+    text-align:center;
+    background:linear-gradient(to bottom, rgba(0,0,0,0.8), var(--black-deep));
+    padding:20px;
+    position:relative;
+}
+.hero img {
+    width:120px; border-radius:50%;
+    margin-bottom:15px;
+    box-shadow: 0 0 25px rgba(212,175,55,0.8);
+}
+.hero-title {
+    font-family:'Cinzel', serif;
+    font-size:3rem;
+    color:var(--gold-primary);
+    margin-bottom:15px;
+    text-shadow: 0 0 15px rgba(212,175,55,0.8);
+}
+.hero-desc {
+    background: rgba(0,0,0,0.5);
+    padding:15px 20px;
+    border-radius:10px;
+    max-width:600px;
+    font-size:1rem;
+    line-height:1.5;
+    margin-bottom:20px;
+    box-shadow:0 0 20px rgba(0,0,0,0.5);
+}
+
+/* Tombol Hero & Struktur */
+.btn-hero {
+    padding:12px 25px;
+    font-weight:500;
+    color:#000;
+    background:var(--gold-primary);
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+    transition:0.3s all;
+    margin-bottom:5px;
+    box-shadow:0 0 10px rgba(212,175,55,0.7);
+}
+.btn-hero:hover {
+    background:var(--gold-hover);
+    color:#fff;
+    transform:scale(1.05);
+    box-shadow:0 0 25px rgba(212,175,55,0.9);
+}
+.btn-hero:active {
+    transform:scale(0.95);
+}
+
+/* Tombol musik */
+.btn-music.off { background:var(--gray); color:#000; }
+.btn-music.on { background:var(--gold-primary); color:#000; }
+
+/* Tombol Struktur kiri */
+#struktur-buttons {
+    display:flex; justify-content:flex-start; gap:10px; margin-top:15px;
+    z-index:10; position:relative;
+}
+
+/* Tombol Sosial Media */
+.social-buttons {
+    display:flex; justify-content:flex-start; gap:10px; margin-top:10px;
+}
+.social-btn {
+    padding:10px 15px; border:none; border-radius:8px; cursor:pointer; color:#fff;
+    font-weight:600; transition:0.3s all; position:relative; overflow:hidden;
+}
+.social-btn.ig { background:var(--ig-color); }
+.social-btn.tt { background:var(--tt-color); }
+.social-btn::after {
+    content:'';
+    position:absolute; top:0; left:0; width:100%; height:100%;
+    background:rgba(255,255,255,0.15);
+    opacity:0;
+    transition:0.3s;
+}
+.social-btn:hover::after { opacity:1; }
+.social-btn:hover { transform:scale(1.05); box-shadow:0 0 20px rgba(255,255,255,0.4); }
+.social-btn:active { transform:scale(0.95); }
+
+/* Highlight Struktur */
+.highlight {
+    max-width:900px;
+    margin:40px auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+    gap:20px;
+    padding:0 20px;
+}
+.card {
+    background:rgba(0,0,0,0.6);
+    border:1px solid var(--gold-primary);
+    border-radius:10px;
+    padding:15px;
+    text-align:center;
+    transition:0.5s all;
+    opacity:0;
+    transform:translateY(20px);
+}
+.card:hover {
+    transform:scale(1.07);
+    box-shadow:0 0 30px rgba(212,175,55,0.8);
+}
+.card img {
+    width:80px; height:80px; border-radius:50%; margin-bottom:10px;
+    border:1px solid var(--gold-primary);
+    box-shadow:0 0 15px rgba(212,175,55,0.6);
+}
+
+/* Carousel Foto */
+.carousel-container {
+    max-width:900px;
+    margin:40px auto;
+    overflow-x:auto;
+    display:flex;
+    gap:15px;
+    padding:0 20px;
+    scroll-behavior:smooth;
+}
+.carousel-container::-webkit-scrollbar { height:6px; }
+.carousel-container::-webkit-scrollbar-thumb { background:var(--gold-primary); border-radius:3px; }
+.carousel-item {
+    min-width:140px; max-width:150px; flex-shrink:0;
+    border:2px solid var(--gold-primary);
+    border-radius:10px;
+    overflow:hidden;
+    cursor:pointer;
+    transition:transform 0.3s, box-shadow 0.3s;
+}
+.carousel-item img { width:100%; height:100px; object-fit:cover; }
+.carousel-item:hover { transform:scale(1.05); box-shadow:0 0 25px rgba(212,175,55,0.8); }
+
+/* Lightbox */
+#lightbox {
+    position:fixed; top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,0.95);
+    display:none; justify-content:center; align-items:center; z-index:9999;
+}
+#lightbox img { max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 0 25px rgba(212,175,55,0.8); }
+
+/* Video */
+.video-section { max-width:800px; margin:40px auto; padding:0 20px; }
+.video-section video { width:100%; border-radius:10px; box-shadow:0 0 25px rgba(212,175,55,0.6); }
+
+/* Struktur Panel */
+#struktur-container { max-width:600px; margin:30px auto; display:none; }
+#struktur-desc { margin-bottom:15px; font-size:1rem; line-height:1.5; color:#fff; padding:0 15px; text-align:justify; }
+.panel-btn {
+    display:block; width:100%; margin:12px 0; padding:12px;
+    background:var(--black-panel); border:none; color:var(--gold-primary);
+    text-align:left; cursor:pointer; font-weight:600; font-size:16px;
+    transition:0.3s all; box-shadow:0 0 10px rgba(212,175,55,0.2);
+}
+.panel-btn:hover {
+    background:rgba(212,175,55,0.1);
+    box-shadow:0 0 25px rgba(212,175,55,0.7);
+    transform:translateX(5px);
+}
+.panel { display:none; background:var(--black-panel); padding:20px; color:var(--white);
+    margin-bottom:12px; border-left:5px solid var(--gold-primary); border-radius:8px;
+    box-shadow:0 0 25px rgba(212,175,55,0.5);
+}
+.panel img { width:100%; max-width:150px; display:block; margin:0 auto 15px; border-radius:50%; box-shadow:0 0 20px rgba(212,175,55,0.7); }
+
+/* Footer */
+footer { text-align:center; padding:20px 0; font-size:0.9rem; color:var(--gray); text-shadow:0 0 5px rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+<!-- Hero -->
+<section class="hero">
+    <img src="images/logo.png" alt="Logo PASSAVANA">
+    <h1 class="hero-title">PASSAVANA</h1>
+    <div class="hero-desc">
+        <p>Paskibra SMPN 146 Jakarta – Disiplin, Berkarakter, Berprestasi.</p>
+        <p>PASSAVANA membentuk kepemimpinan, kedisiplinan, dan semangat berprestasi para anggotanya.</p>
+    </div>
+
+    <!-- Tombol Struktur Kiri -->
+    <div id="struktur-buttons">
+        <button class="btn-hero" onclick="showStruktur('organisasi')">Struktur Organisasi</button>
+        <button class="btn-hero" onclick="showStruktur('kepelatihan')">Struktur Kepelatihan</button>
+    </div>
+
+    <!-- Musik -->
+    <div id="audio-control">
+        <audio id="bgMusic" src="audio/lagu.mp3" loop></audio>
+        <button id="musicBtn" class="btn-hero btn-music off" onclick="toggleMusic()"> Play Musik</button>
+    </div>
+
+    <!-- Sosial Media -->
+    <div class="social-buttons">
+        <button class="social-btn ig" onclick="window.open('https://www.instagram.com/paskibra146jakarta','_blank')">Instagram</button>
+        <button class="social-btn tt" onclick="window.open('https://www.tiktok.com/@paskibrasmpn146jakarta','_blank')">TikTok</button>
+    </div>
+</section>
+
+<!-- Highlight Struktur -->
+<section class="highlight">
+    <div class="card"><img src="images/ketuatika.jpg"><h3>Ketua</h3><p>Mustika Sukma Putri</p></div>
+    <div class="card"><img src="images/jametwakil.jpg"><h3>Wakil</h3><p>Nabilatul Malika</p></div>
+    <div class="card"><img src="images/sindi.jpg"><h3>Sekretaris</h3><p>Sindy Adelpha</p></div>
+    <div class="card"><img src="images/naya.jpg"><h3>Bendahara</h3><p>Kanaya Putri</p></div>
+</section>
+
+<!-- Carousel Foto -->
+<section class="carousel-container">
+    <div class="carousel-item"><img src="images/latihan.jpg"></div>
+    <div class="carousel-item"><img src="images/struktur2.jpg"></div>
+    <div class="carousel-item"><img src="images/struktur3.jpg"></div>
+    <div class="carousel-item"><img src="images/struktur4.jpg"></div>
+</section>
+
+<!-- Lightbox -->
+<div id="lightbox" onclick="this.style.display='none'">
+    <img id="lightbox-img" src="">
+</div>
+
+<!-- Video -->
+<section class="video-section">
+    <video controls>
+        <source src="video/kegiatan.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video.
+    </video>
+</section>
+
+<!-- Struktur Container -->
+<div id="struktur-container">
+    <div id="struktur-desc"></div>
+    <div id="struktur-panels"></div>
+    <button class="btn-hero" onclick="hideStruktur()">Kembali ke Home</button>
+</div>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2026 PASSAVANA | #Paskibra146 #PASSAVANA | All Rights Reserved</p>
+</footer>
+
+<script>
+// Musik
+function toggleMusic(){
+    const music=document.getElementById('bgMusic');
+    const btn=document.getElementById('musicBtn');
+    if(music.paused){ music.play(); btn.classList.remove('off'); btn.classList.add('on'); }
+    else{ music.pause(); btn.classList.remove('on'); btn.classList.add('off'); }
+}
+
+// Fade-in highlight
+const cards=document.querySelectorAll('.card');
+window.addEventListener('scroll',()=>{
+    const triggerBottom=window.innerHeight/1.1;
+    cards.forEach(card=>{
+        const cardTop=card.getBoundingClientRect().top;
+        if(cardTop<triggerBottom){ card.style.opacity='1'; card.style.transform='translateY(0)'; }
+    });
+});
+
+// Lightbox
+const items=document.querySelectorAll('.carousel-item img');
+const lightbox=document.getElementById('lightbox');
+const lightboxImg=document.getElementById('lightbox-img');
+items.forEach(img=>{ img.addEventListener('click',()=>{ lightbox.style.display='flex'; lightboxImg.src=img.src; }); });
+
+// Struktur
+const strukturData={
+    organisasi:{ desc:"Struktur Organisasi PASSAVANA menampilkan jabatan, anggota, dan visi misi setiap posisi.", panels:[
+        {id:'ketua',title:'Ketua',img:'images/ketuatika.jpg',nama:'Mustika Sukma Putri',jabatan:'Ketua',tahun:'2026-2027',deskripsi:'Membangun kepemimpinan yang disiplin, tangguh, dan menginspirasi seluruh anggota.'},
+        {id:'wakil',title:'Wakil',img:'images/jametwakil.jpg',nama:'Nabilatul Malika Husein',jabatan:'Wakil Ketua',tahun:'2026-2027',deskripsi:'Mendukung ketua dalam membangun disiplin, koordinasi, dan kekompakan anggota.'},
+        {id:'sekre',title:'Sekretaris',img:'images/sindi.jpg',nama:'Sindy Adelpha Septiany Sianturi',jabatan:'Sekretaris',tahun:'2026-2027',deskripsi:'Menyusun administrasi organisasi dengan rapi dan menjaga komunikasi antaranggota.'},
+        {id:'wasekre',title:'Wakil Sekretaris',img:'images/ibow.jpg',nama:'Rainbow Miracle Tamako Exclusive',jabatan:'Wakil Sekretaris',tahun:'2026-2027',deskripsi:'Membantu sekretaris dalam pengelolaan administrasi dan dokumentasi.'},
+        {id:'bendahara',title:'Bendahara',img:'images/naya.jpg',nama:'Kanaya Putri',jabatan:'Bendahara',tahun:'2026-2027',deskripsi:'Mengelola keuangan organisasi secara transparan dan akuntabel.'},
+        {id:'wakil-bendahara',title:'Wakil Bendahara',img:'images/wakil-bendahara-padang.jpg',nama:'Yuni Putri Anggreini',jabatan:'Wakil Bendahara',tahun:'2026-2027',deskripsi:'Mendukung bendahara dalam pengelolaan keuangan dan memastikan kelancaran seluruh program organisasi.'}
+    ]},
+    kepelatihan:{ desc:"Struktur Kepelatihan PASSAVANA menampilkan pelatih dan official yang mendukung jalannya latihan.", panels:[
+        {id:'pelatih',title:'Pelatih Utama',img:'images/endang-sutisna.jpg',nama:'Endang Sutisna',jabatan:'Pelatih Utama',tahun:'2026',deskripsi:'Pelatih Utama Paskibra.'},
+        {id:'official1',title:'Official Tim 1',img:'images/zaky-pratama.jpg',nama:'Zaky Pratama',jabatan:'Official Tim',tahun:'2026',deskripsi:'Mendukung jalannya latihan.'},
+        {id:'official2',title:'Official Tim 2',img:'images/ahza-ehsan.jpg',nama:'Ahza Ehsan',jabatan:'Official Tim',tahun:'2026',deskripsi:'Mendukung jalannya latihan.'}
+    ]}
+};
+
+function showStruktur(type){
+    document.querySelector('.hero').style.display='none';
+    document.querySelector('.highlight').style.display='none';
+    document.querySelector('.carousel-container').style.display='none';
+    document.querySelector('.video-section').style.display='none';
+    document.getElementById('struktur-container').style.display='block';
+
+    const descEl=document.getElementById('struktur-desc');
+    descEl.innerText=strukturData[type].desc;
+
+    const panelsEl=document.getElementById('struktur-panels');
+    panelsEl.innerHTML='';
+    strukturData[type].panels.forEach(p=>{
+        const btn=document.createElement('button');
+        btn.className='panel-btn';
+        btn.innerText=p.title;
+        btn.onclick=()=>togglePanel(p.id);
+        panelsEl.appendChild(btn);
+
+        const panelDiv=document.createElement('div');
+        panelDiv.className='panel';
+        panelDiv.id=p.id;
+        panelDiv.innerHTML=`<img src="${p.img}" alt="${p.title}"><strong>Nama:</strong> ${p.nama}<br><strong>Jabatan:</strong> ${p.jabatan}<br><strong>Tahun:</strong> ${p.tahun}<br><strong>Deskripsi:</strong> ${p.deskripsi}`;
+        panelsEl.appendChild(panelDiv);
+    });
+}
+
+function togglePanel(id){
+    const panel=document.getElementById(id);
+    panel.style.display=(panel.style.display==='block')?'none':'block';
+}
+
+function hideStruktur(){
+    document.querySelector('.hero').style.display='flex';
+    document.querySelector('.highlight').style.display='grid';
+    document.querySelector('.carousel-container').style.display='flex';
+    document.querySelector('.video-section').style.display='block';
+    document.getElementById('struktur-container').style.display='none';
+}
+</script>
+
+</body>
+</html>
